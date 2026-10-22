@@ -35,34 +35,9 @@ airflow:
         cpu: "500m"
         memory: "512Mi"
 
-# ==========================================
-# НАСТРОЙКИ POSTGRESQL (добавить в самый низ!)
-# ==========================================
-# ==========================================
-# ИСПРАВЛЕНИЕ ДЛЯ POSTGRESQL (добавить в самый низ!)
-# ==========================================
 postgresql:
   enabled: true
   image:
     registry: docker.io
-    repository: bitnamilegacy/postgresql  # <-- Вот магическое изменение!
+    repository: bitnamilegacy/postgresql
     tag: "16.1.0-debian-11-r15"
-  # Принудительно задаем переменные для официального образа postgres
-  primary:
-    env:
-      - name: POSTGRES_USER
-        value: "airflow"
-      - name: POSTGRES_PASSWORD
-        value: "airflow"
-      - name: POSTGRES_DB
-        value: "airflow"
-
-# Убедимся, что Airflow знает эти же данные для подключения
-data:
-  metadataConnection:
-    user: "airflow"
-    pass: "airflow"
-    protocol: "postgresql"
-    host: "airflow-postgresql"
-    port: 5432
-    db: "airflow"
